@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarnPro - Earn Smart, Grow Fast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+        }
+        
+        .silver-gradient {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .qr-code {
+            background: linear-gradient(45deg, #ffd700, #c0c0c0);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        
+        .premium-card {
+            background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+            border: 1px solid #404040;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <nav class="bg-black bg-opacity-50 backdrop-blur-md fixed w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <button id="backButton" onclick="goBack()" class="hidden text-yellow-400 hover:text-yellow-300 transition-colors">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button onclick="showSection('landing')" class="text-2xl font-bold gold-gradient bg-clip-text text-transparent hover:scale-105 transition-transform">
+                    EarnPro
+                </button>
+            </div>
+            <div id="nav-actions" class="space-x-4">
+                <button onclick="showLogin()" class="px-4 py-2 border border-yellow-500 text-yellow-400 rounded-lg hover:bg-yellow-500 hover:text-black transition-all">Login</button>
+                <button onclick="showSignup()" class="px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-400 transition-all">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="landing" class="min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-4xl mx-auto text-center fade-in">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6">
+                <span class="gold-gradient bg-clip-text text-transparent">Earn Smart,</span><br>
+                <span class="silver-gradient bg-clip-text text-transparent">Grow Fast</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Join thousands of smart investors who are building their wealth through our premium earning packages. Start your financial journey today.
+            </p>
+            <div class="space-y-4 md:space-y-0 md:space-x-4 md:flex md:justify-center">
+                <button onclick="showPackages()" class="w-full md:w-auto px-8 py-4 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                    View Packages
+                </button>
+                <button onclick="showLogin()" class="w-full md:w-auto px-8 py-4 border-2 border-gray-400 text-gray-300 rounded-lg hover:bg-gray-400 hover:text-black transition-all">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="login" class="hidden min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-md w-full premium-card rounded-2xl p-8 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-8 gold-gradient bg-clip-text text-transparent">Welcome Back</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-gray-300 mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white" name="email">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white" name="password">
+                </div>
+                <button type="submit" class="w-full py-3 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                    Login
+                </button>
+            </form>
+            <p class="text-center text-gray-400 mt-6">
+                Don't have an account? 
+                <button onclick="showSignup()" class="text-yellow-400 hover:text-yellow-300">Sign up</button>
+            </p>
+            <p class="text-center text-sm text-gray-500 mt-4">
+                Admin Access: **admin@earnpro.com** / **password**
+            </p>
+        </div>
+    </section>
+
+    <section id="signup" class="hidden min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-md w-full premium-card rounded-2xl p-8 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-8 silver-gradient bg-clip-text text-transparent">Join EarnPro</h2>
+            <form id="signupForm" onsubmit="handleSignup(event)" class="space-y-6">
+                <div>
+                    <label class="block text-gray-300 mb-2">Username</label>
+                    <input type="text" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white" name="username">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Email</label>
+                    <input type="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white" name="email">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-2">Password</label>
+                    <input type="password" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white" name="password">
+                </div>
+                <button type="submit" class="w-full py-3 silver-gradient text-black font-semibold rounded-lg hover-lift">
+                    Create Account
+                </button>
+            </form>
+            <p class="text-center text-gray-400 mt-6">
+                Already have an account? 
+                <button onclick="showLogin()" class="text-yellow-400 hover:text-yellow-300">Login</button>
+            </p>
+        </div>
+    </section>
+
+    <section id="profileSetup" class="hidden min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-md w-full premium-card rounded-2xl p-8 fade-in">
+            <h2 class="text-3xl font-bold text-center mb-8 gold-gradient bg-clip-text text-transparent">Complete Your Profile</h2>
+            <form id="profileForm" onsubmit="handleProfileSetup(event)" class="space-y-6">
+                <div class="text-center">
+                    <label for="profilePicture" class="block text-gray-300 mb-2">Profile Picture (Optional)</label>
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gray-700 flex items-center justify-center text-gray-400 text-sm overflow-hidden mb-4 cursor-pointer" onclick="document.getElementById('profilePicture').click()">
+                        <img id="profilePreview" class="hidden w-full h-full object-cover" src="" alt="Profile Preview">
+                        <span id="profilePlaceholder">Upload Image</span>
+                    </div>
+                    <input type="file" id="profilePicture" accept="image/*" class="hidden" onchange="previewProfilePicture(event)">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="fullName" required class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-yellow-500 focus:outline-none text-white">
+                </div>
+                <button type="submit" class="w-full py-3 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                    Go to Dashboard
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="packages" class="hidden min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-6xl mx-auto fade-in">
+            <h2 class="text-5xl font-bold text-center mb-4 gold-gradient bg-clip-text text-transparent">Choose Your Package</h2>
+            <p class="text-xl text-gray-300 text-center mb-12">Select the perfect plan to start your earning journey</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="premium-card rounded-2xl p-8 hover-lift">
+                    <div class="text-center">
+                        <div class="w-20 h-20 silver-gradient rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <span class="text-2xl font-bold text-black">Ag</span>
+                        </div>
+                        <h3 class="text-3xl font-bold silver-gradient bg-clip-text text-transparent mb-4">Silver Package</h3>
+                        <div class="text-5xl font-bold text-white mb-6">₹1,000</div>
+                        <ul class="text-gray-300 space-y-3 mb-8">
+                            <li>✓ 15% Monthly Returns</li>
+                            <li>✓ Basic Support</li>
+                            <li>✓ Mobile App Access</li>
+                            <li>✓ Weekly Reports</li>
+                        </ul>
+                        <button onclick="selectPackage('silver', 1000)" class="w-full py-3 silver-gradient text-black font-semibold rounded-lg hover-lift">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="premium-card rounded-2xl p-8 hover-lift border-2 border-yellow-500 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-semibold">POPULAR</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 gold-gradient rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <span class="text-2xl font-bold text-black">Au</span>
+                        </div>
+                        <h3 class="text-3xl font-bold gold-gradient bg-clip-text text-transparent mb-4">Gold Package</h3>
+                        <div class="text-5xl font-bold text-white mb-6">₹2,000</div>
+                        <ul class="text-gray-300 space-y-3 mb-8">
+                            <li>✓ 25% Monthly Returns</li>
+                            <li>✓ Priority Support</li>
+                            <li>✓ Advanced Analytics</li>
+                            <li>✓ Daily Reports</li>
+                            <li>✓ Bonus Rewards</li>
+                        </ul>
+                        <button onclick="selectPackage('gold', 2000)" class="w-full py-3 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="payment" class="hidden min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-4xl mx-auto fade-in">
+            <h2 class="text-4xl font-bold text-center mb-8 gold-gradient bg-clip-text text-transparent">Complete Your Payment</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="premium-card rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Payment Details</h3>
+                    <div id="selectedPackageInfo" class="mb-6">
+                        </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-yellow-400">Payment Options:</h4>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="payment" value="esewa" class="text-yellow-500" checked>
+                                <span>eSewa Digital Wallet</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="payment" value="khalti" class="text-yellow-500">
+                                <span>Khalti</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="payment" value="card" class="text-yellow-500">
+                                <span>Credit/Debit Card</span>
+                            </label>
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="radio" name="payment" value="netbanking" class="text-yellow-500">
+                                <span>Net Banking</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="premium-card rounded-2xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-6">Quick Payment</h3>
+                    <div class="qr-code mb-6">
+                        <svg width="200" height="200" viewBox="0 0 200 200" class="mx-auto">
+                            <rect width="200" height="200" fill="white"/>
+                            <g fill="black">
+                                <rect x="10" y="10" width="60" height="60"/>
+                                <rect x="130" y="10" width="60" height="60"/>
+                                <rect x="10" y="130" width="60" height="60"/>
+                                <rect x="20" y="20" width="40" height="40" fill="white"/>
+                                <rect x="140" y="20" width="40" height="40" fill="white"/>
+                                <rect x="20" y="140" width="40" height="40" fill="white"/>
+                                <rect x="30" y="30" width="20" height="20"/>
+                                <rect x="150" y="30" width="20" height="20"/>
+                                <rect x="30" y="150" width="20" height="20"/>
+                                <rect x="80" y="10" width="10" height="10"/>
+                                <rect x="100" y="10" width="10" height="10"/>
+                                <rect x="80" y="30" width="10" height="10"/>
+                                <rect x="100" y="50" width="10" height="10"/>
+                                <rect x="80" y="80" width="30" height="30"/>
+                                <rect x="130" y="80" width="10" height="10"/>
+                                <rect x="150" y="80" width="10" height="10"/>
+                                <rect x="170" y="80" width="10" height="10"/>
+                                <rect x="10" y="80" width="10" height="10"/>
+                                <rect x="30" y="80" width="10" height="10"/>
+                                <rect x="50" y="80" width="10" height="10"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <p class="text-gray-300 mb-4">Scan the QR code to complete your payment securely</p>
+                    <p class="text-sm text-gray-400 mb-6">Use eSewa, Khalti, or any digital wallet app</p>
+                    <button onclick="confirmPayment()" class="w-full py-3 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                        Confirm Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="hidden min-h-screen px-6 pt-20">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-bold gold-gradient bg-clip-text text-transparent">User Dashboard</h2>
+                <div class="flex items-center space-x-4">
+                    <div id="userProfileDisplay" class="flex items-center space-x-2">
+                        </div>
+                    <button onclick="logout()" class="px-4 py-2 border border-red-500 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-all">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-yellow-400">Active Package</h3>
+                    <div id="activePackage">
+                        <div class="text-2xl font-bold mb-2">No Package Active</div>
+                        <div class="text-gray-300">₹0 Investment</div>
+                        <div class="text-green-400 text-sm mt-2">0% Monthly Returns</div>
+                    </div>
+                </div>
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-green-400">Total Earnings</h3>
+                    <div class="text-3xl font-bold text-green-400">₹0</div>
+                    <div class="text-gray-300 text-sm mt-2">This month: +₹0</div>
+                </div>
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Account Balance</h3>
+                    <div class="text-3xl font-bold text-blue-400">₹0</div>
+                    <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+                        Withdraw
+                    </button>
+                </div>
+            </div>
+
+            <div class="premium-card rounded-2xl p-6 mb-8">
+                <h3 class="text-2xl font-semibold mb-6 text-yellow-400">Transaction History</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-gray-600">
+                                <th class="pb-3 text-gray-300">Date</th>
+                                <th class="pb-3 text-gray-300">Type</th>
+                                <th class="pb-3 text-gray-300">Amount</th>
+                                <th class="pb-3 text-gray-300">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionHistoryBody" class="space-y-2">
+                            <tr>
+                                <td class="py-3 text-gray-500" colspan="4">No transactions yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="premium-card rounded-2xl p-6">
+                <h3 class="text-2xl font-semibold mb-6 text-yellow-400">Package Management</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <button onclick="showPackages()" class="py-3 px-6 gold-gradient text-black font-semibold rounded-lg hover-lift">
+                        Upgrade Package
+                    </button>
+                    <button class="py-3 px-6 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-500 hover:text-black transition-all">
+                        Package Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="adminDashboard" class="hidden min-h-screen px-6 pt-20">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-bold gold-gradient bg-clip-text text-transparent">Admin Control Panel</h2>
+                <button onclick="logout()" class="px-4 py-2 border border-red-500 text-red-400 rounded-lg hover:bg-red-500 hover:text-white transition-all">
+                    Logout (Admin)
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-yellow-400">Total Users</h3>
+                    <div id="adminTotalUsers" class="text-3xl font-bold text-yellow-400">1</div>
+                </div>
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-green-400">Total Investments</h3>
+                    <div id="adminTotalInvestment" class="text-3xl font-bold text-green-400">₹0</div>
+                </div>
+                <div class="premium-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-400">Active Gold Plans</h3>
+                    <div id="adminActiveGold" class="text-3xl font-bold text-blue-400">0</div>
+                </div>
+            </div>
+
+            <div class="premium-card rounded-2xl p-6 mb-8">
+                <h3 class="text-2xl font-semibold mb-6 text-yellow-400">Account Analysis</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-gray-600">
+                                <th class="pb-3 text-gray-300">Name</th>
+                                <th class="pb-3 text-gray-300">Email</th>
+                                <th class="pb-3 text-gray-300">Status</th>
+                                <th class="pb-3 text-gray-300">Package</th>
+                                <th class="pb-3 text-gray-300">Investment</th>
+                                <th class="pb-3 text-gray-300">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUserList" class="space-y-2">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="bg-black bg-opacity-80 py-8 px-6 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-2xl font-bold gold-gradient bg-clip-text text-transparent mb-4">EarnPro</div>
+                    <p class="text-gray-400">Building wealth through smart investment solutions.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-yellow-400 mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><button onclick="showPackages()" class="hover:text-yellow-400 transition-colors">Packages</button></li>
+                        <li><button onclick="showLogin()" class="hover:text-yellow-400 transition-colors">Login</button></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-yellow-400 mb-4">Contact</h4>
+                    <p class="text-gray-400">Email: support@earnpro.com</p>
+                    <p class="text-gray-400">Phone: +91 98765 43210</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-gray-400 mb-2">© 2024 EarnPro. All rights reserved.</p>
+                <p class="text-lg font-semibold">
+                    <span class="text-gray-300">CEO: </span>
+                    <span class="gold-gradient bg-clip-text text-transparent">Imtiyaz Ansari</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Global State Simulation ---
+        let navigationHistory = ['landing'];
+        let currentUser = null; 
+        let selectedPackage = null;
+        
+        // Simulated User Database
+        let users = [
+            // Sample User Data (pre-populated)
+            {
+                email: 'test@user.com',
+                password: 'password', // Simulating password (NEVER do this in production)
+                is_admin: false,
+                profile: {
+                    fullName: 'Sample User',
+                    pictureUrl: 'https://i.pravatar.cc/150?img=68' // Placeholder avatar
+                },
+                package: { type: 'gold', amount: 2000, returns: 0.25 },
+                earnings: 500,
+                balance: 2500,
+                transactions: [
+                    { date: '2024-01-15', type: 'Package Purchase', amount: -2000, status: 'Completed' },
+                    { date: '2024-02-15', type: 'Monthly Return', amount: 500, status: 'Completed' },
+                ]
+            }
+        ];
+        
+        // --- Admin Credential ---
+        const ADMIN_EMAIL = 'admin@earnpro.com';
+        const ADMIN_PASSWORD = 'password';
+
+
+        // --- Navigation Functions ---
+        function showSection(sectionId) {
+            const sections = ['landing', 'login', 'signup', 'profileSetup', 'packages', 'payment', 'dashboard', 'adminDashboard'];
+            sections.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update navigation history
+            if (navigationHistory[navigationHistory.length - 1] !== sectionId) {
+                navigationHistory.push(sectionId);
+            }
+            
+            // Show/hide back button
+            const backButton = document.getElementById('backButton');
+            if (sectionId === 'landing' || navigationHistory.length <= 1) {
+                backButton.classList.add('hidden');
+            } else {
+                backButton.classList.remove('hidden');
+            }
+        }
+
+        function goBack() {
+            if (navigationHistory.length > 1) {
+                navigationHistory.pop(); 
+                const previousPage = navigationHistory.pop(); // Go back two steps to get the real previous page
+                showSection(previousPage);
+            }
+        }
+
+        function showLogin() { showSection('login'); }
+        function showSignup() { showSection('signup'); }
+        function showPackages() { showSection('packages'); }
+        function showProfileSetup() { showSection('profileSetup'); }
+        
+        // --- Authentication Logic ---
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const email = form.email.value;
+            const password = form.password.value;
+            
+            // 1. Check for Admin Login
+            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                currentUser = { is_admin: true, email: ADMIN_EMAIL, profile: { fullName: 'Administrator' } };
+                // Clear and set new history for admin
+                navigationHistory = ['adminDashboard'];
+                renderAdminDashboard();
+                return;
+            }
+
+            // 2. Check for User Login
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                // Clear and set new history for user
+                navigationHistory = ['dashboard'];
+                renderUserDashboard();
+            } else {
+                alert('Login Failed: Invalid email or password.');
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const form = event.target;
+            const username = form.username.value;
+            const email = form.email.value;
+            const password = form.password.value;
+            
+            if (users.some(u => u.email === email)) {
+                alert('Signup Failed: An account with this email already exists.');
+                return;
+            }
+
+            // Temporarily store signup data and move to profile setup
+            const tempUser = { email, password, username };
+            
+            // Prefill Full Name field with Username
+            document.getElementById('fullName').value = username;
+
+            // Use session storage/temp object for simplicity
+            sessionStorage.setItem('tempSignup', JSON.stringify(tempUser));
+            
+            showProfileSetup();
+        }
+
+        function handleProfileSetup(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const tempUser = JSON.parse(sessionStorage.getItem('tempSignup'));
+
+            if (!tempUser) {
+                alert('Error: Signup data missing. Please sign up again.');
+                showSignup();
+                return;
+            }
+
+            // Get the base64 URL for the profile picture (simulated save)
+            const profilePreview = document.getElementById('profilePreview');
+            const pictureUrl = profilePreview.src.includes('data:image') ? profilePreview.src : '';
+
+            // Create the new user object
+            const newUser = {
+                ...tempUser,
+                is_admin: false,
+                profile: { fullName, pictureUrl },
+                package: { type: 'None', amount: 0, returns: 0 },
+                earnings: 0,
+                balance: 0,
+                transactions: []
+            };
+
+            // Add new user to the simulated database
+            users.push(newUser);
+            currentUser = newUser;
+            sessionStorage.removeItem('tempSignup'); // Clear temp data
+
+            // Clear and set new history for user
+            navigationHistory = ['dashboard'];
+            renderUserDashboard();
+        }
+
+        function logout() {
+            currentUser = null;
+            selectedPackage = null;
+            navigationHistory = ['landing'];
+            showSection('landing');
+        }
+
+        // --- Profile Picture Logic ---
+        function previewProfilePicture(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            const preview = document.getElementById('profilePreview');
+            const placeholder = document.getElementById('profilePlaceholder');
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                preview.src = '';
+            }
+        }
+        
+        // --- User Dashboard Rendering ---
+
+        function renderUserDashboard() {
+            if (!currentUser || currentUser.is_admin) return showSection('landing');
+            
+            const user = currentUser;
+
+            // 1. Update Profile Display
+            const profileDiv = document.getElementById('userProfileDisplay');
+            const pictureSrc = user.profile.pictureUrl || 'https://i.pravatar.cc/150?img=35'; // Default
+            profileDiv.innerHTML = `
+                <span class="text-sm font-semibold text-gray-300 hidden sm:inline">Hi, ${user.profile.fullName.split(' ')[0]}</span>
+                <img src="${pictureSrc}" alt="Profile" class="w-8 h-8 rounded-full object-cover border border-yellow-400">
+            `;
+
+            // 2. Update Dashboard Widgets
+            const pkg = user.package;
+            
+            document.getElementById('activePackage').innerHTML = `
+                <div class="text-2xl font-bold mb-2">${pkg.type.charAt(0).toUpperCase() + pkg.type.slice(1)} Package</div>
+                <div class="text-gray-300">₹${pkg.amount.toLocaleString()} Investment</div>
+                <div class="text-green-400 text-sm mt-2">${pkg.returns * 100}% Monthly Returns</div>
+            `;
+            
+            document.querySelector('#dashboard .text-3xl.font-bold.text-green-400').textContent = `₹${user.earnings.toLocaleString()}`;
+            document.querySelector('#dashboard .text-gray-300.text-sm.mt-2').textContent = `This month: +₹${(pkg.amount * pkg.returns).toLocaleString()}`;
+            document.querySelector('#dashboard .text-3xl.font-bold.text-blue-400').textContent = `₹${user.balance.toLocaleString()}`;
+
+            // 3. Update Transaction History
+            const transactionBody = document.getElementById('transactionHistoryBody');
+            if (user.transactions.length === 0) {
+                transactionBody.innerHTML = '<tr><td class="py-3 text-gray-500" colspan="4">No transactions yet.</td></tr>';
+            } else {
+                transactionBody.innerHTML = user.transactions.map(t => `
+                    <tr class="border-b border-gray-700">
+                        <td class="py-3">${t.date}</td>
+                        <td class="py-3">${t.type}</td>
+                        <td class="py-3 ${t.amount > 0 ? 'text-green-400' : 'text-red-400'}">${t.amount > 0 ? '+' : ''}₹${t.amount.toLocaleString()}</td>
+                        <td class="py-3 text-green-400">${t.status}</td>
+                    </tr>
+                `).join('');
+            }
+
+            showSection('dashboard');
+        }
+
+
+        // --- Admin Dashboard Rendering ---
+        function renderAdminDashboard() {
+            if (!currentUser || !currentUser.is_admin) return showSection('landing');
+
+            // 1. Calculate Stats
+            const totalUsers = users.length;
+            const totalInvestment = users.reduce((sum, u) => sum + u.package.amount, 0);
+            const activeGold = users.filter(u => u.package.type === 'gold').length;
+
+            // 2. Update Admin Widgets
+            document.getElementById('adminTotalUsers').textContent = totalUsers.toLocaleString();
+            document.getElementById('adminTotalInvestment').textContent = `₹${totalInvestment.toLocaleString()}`;
+            document.getElementById('adminActiveGold').textContent = activeGold.toLocaleString();
+
+            // 3. Render User List
+            const userListBody = document.getElementById('adminUserList');
+            userListBody.innerHTML = '';
+
+            const adminUserList = users.map(user => `
+                <tr class="border-b border-gray-700">
+                    <td class="py-3">${user.profile.fullName || user.username}</td>
+                    <td class="py-3">${user.email}</td>
+                    <td class="py-3 text-green-400">Active</td>
+                    <td class="py-3">
+                        <span class="px-2 py-1 text-xs font-semibold rounded ${user.package.type === 'gold' ? 'bg-yellow-800 text-yellow-300' : user.package.type === 'silver' ? 'bg-gray-600 text-gray-300' : 'bg-red-800 text-red-300'}">
+                            ${user.package.type.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="py-3">₹${user.package.amount.toLocaleString()}</td>
+                    <td class="py-3">
+                        <button onclick="alert('Viewing Details for ${user.email}')" class="text-blue-400 hover:text-blue-300 text-sm">View Details</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            userListBody.innerHTML = adminUserList;
+            
+            showSection('adminDashboard');
+        }
+
+
+        // --- Package Purchase Flow ---
+        function selectPackage(packageType, amount) {
+            if (!currentUser) {
+                alert('Please login or sign up first to purchase a package.');
+                showLogin();
+                return;
+            }
+
+            selectedPackage = { 
+                type: packageType, 
+                amount: amount, 
+                returns: packageType === 'gold' ? 0.25 : 0.15 
+            };
+            
+            const packageInfo = document.getElementById('selectedPackageInfo');
+            const gradientClass = packageType === 'gold' ? 'text-yellow-400' : 'text-gray-300';
+
+            packageInfo.innerHTML = `
+                <div class="border border-gray-600 rounded-lg p-4">
+                    <h4 class="text-lg font-semibold ${gradientClass} mb-2">
+                        ${packageType.charAt(0).toUpperCase() + packageType.slice(1)} Package
+                    </h4>
+                    <div class="text-2xl font-bold">₹${amount.toLocaleString()}</div>
+                    <div class="text-sm text-gray-400 mt-2">
+                        ${selectedPackage.returns * 100}% Monthly Returns
+                    </div>
+                </div>
+            `;
+            
+            showSection('payment');
+        }
+
+        function confirmPayment() {
+            if (!currentUser || !selectedPackage) return;
+            
+            // Simulate payment processing
+            alert(`Payment of ₹${selectedPackage.amount} confirmed! Your ${selectedPackage.type} package is now active.`);
+            
+            // Update user state
+            currentUser.package = selectedPackage;
+            currentUser.balance += selectedPackage.amount;
+            
+            // Add initial transaction
+            currentUser.transactions.push({
+                date: new Date().toISOString().slice(0, 10),
+                type: 'Package Purchase',
+                amount: -selectedPackage.amount,
+                status: 'Completed'
+            });
+            
+            // Simulate first month's return transaction
+             const monthlyReturn = selectedPackage.amount * selectedPackage.returns;
+            currentUser.transactions.push({
+                date: new Date().toISOString().slice(0, 10),
+                type: 'Monthly Return',
+                amount: monthlyReturn,
+                status: 'Pending'
+            });
+
+            currentUser.earnings = monthlyReturn;
+            currentUser.balance += monthlyReturn;
+            
+            selectedPackage = null; // Clear selected package
+            
+            // Find and update the user in the global users array (for Admin view)
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            renderUserDashboard();
+        }
+
+        // Initialize view
+        showSection('landing');
+    </script>
+</body>
+</html>
